@@ -18,11 +18,13 @@ function Grid:create(params)
     local cellHeight = params.height / params.rows
 
     self._rows = {}
+    self._objects = {}
     local ox = -(params.columns - 1) * cellWidth / 2
     local oy = -(params.rows - 1) * cellHeight / 2
 
     for r = 1, params.rows do
         self._rows[r] = {}
+        self._objects[r] = {}
         for c = 1, params.columns do
             self._rows[r][c] = display.newRect(self.group, 0, 0, cellWidth - 3, cellHeight- 3)
             self._rows[r][c]:setFillColor(0.5, 0.2, 0.5)
@@ -32,6 +34,23 @@ function Grid:create(params)
     end
 end
 
+
+function Grid:addObject(col, row, object)
+    self._objects[row][col] = object
+
+    self._rows[row][col]:setFillColor(0.2, 0.5, 0.2)
+end
+
+
+function Grid:moveObject(fromCol, fromRow, toCol, toRow)
+    if not (self._rows[toRow] or {})[toCol] or self._objects[toRow][toCol] then return false end
+
+    self._objects[toRow][toCol] = self._objects[fromRow][fromCol]
+    self._objects[fromRow][fromCol] = nil
+
+    self._rows[fromRow][fromCol]:setFillColor(0.5, 0.2, 0.5)
+    self._rows[toRow][toCol]:setFillColor(0.2, 0.5, 0.2)
+end
 
 function Grid:getCell(col, row)
     return self._rows[row][col]

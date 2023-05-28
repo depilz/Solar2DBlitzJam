@@ -18,6 +18,7 @@ function Enemy:create(params)
     self._animation = Animation:new(self.group, self.color)
 
     self.grid = params.grid
+    self.grid:addObject(params.col, params.row, self)
 
     self:locateAt(params.col, params.row)
 end
@@ -29,23 +30,22 @@ end
 
 
 function Enemy:locateAt(col, row)
+    if not self.grid:moveObject(self.col, self.row, col, row) then return false end
     self.col = col
     self.row = row
 
     local cell = self.grid:getCell(col, row)
     self.group.x = cell.x
     self.group.y = cell.y
+
+    return true
 end
 
 function Enemy:move(dx, dy)
     local col = self.col + dx
     local row = self.row + dy
 
-    if col < 1 or col > self.grid.numCols or row < 1 or row > self.grid.numRows then
-        return
-    end
-
-    self:locateAt(col, row)
+    return self:locateAt(col, row)
 end
 
 

@@ -1,18 +1,24 @@
-local Entity  = require("Assets.Entities.entity")
+local SpriteSheetAnimation = require("Assets.Entities.Animated.spriteSheetAnimation")
+
+local SpriteData =  require("Assets.Scenes.MainGame.greySprite")
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- Grey object --
+-- Animation
 -- ---------------------------------------------------------------------------------------------------------------------
-local Grey = Class("grey", Entity)
-Grey._inGameElement = true
 
--- Initialization ------------------------------------------------------------------------------------------------------
+local Animation = Class("animation", SpriteSheetAnimation)
 
-function Grey:create(parent)
-    Entity.create(self, parent)
+Animation.__imageSheet   = SpriteData.imageSheet
+Animation.__sequenceData = SpriteData.sequenceData
 
-    self._body = display.newRect(self.group, 0, 0, 20, 40):setFillColor(0.5)
+-- ---------------------------------------------------------------------------------------------------------------------
+-- Enemy - Animation --
+-- ---------------------------------------------------------------------------------------------------------------------
+
+function Animation:create(parent)
+  SpriteSheetAnimation.create(self, parent)
+
 end
 
 
-return Grey
+return Animation
