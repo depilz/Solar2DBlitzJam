@@ -1,0 +1,16 @@
+{
+  "release": {
+    "towerStats"      : 1,
+    "levels"          : 1,
+    "hordeTypes"      : 1,
+    "hordeCategories" : 1,
+    "products"        : 1
+  },
+  "debug": {
+    "towerStats"      : 1,
+    "levels"          : 1,
+    "hordeTypes"      : 1,
+    "hordeCategories" : 1,
+    "products"        : 1
+  }
+}

@@ -1,0 +1,96 @@
+settings = {
+  orientation = {
+    default   = "landscapeRight",
+    supported = { "landscapeRight", "landscapeLeft", "portrait"}
+  },
+
+  iphone = {
+    plist = {
+      UIStatusBarHidden = true,
+      UIPrerenderedIcon = true, -- set to false for "shine" overlay
+      --UIApplicationExitsOnSuspend = true, -- uncomment to quit app on suspend
+
+      CFBundleIconFile = "Icon-App.png",
+      CFBundleIconFiles =
+      {
+            "Icon20x20@2x.png",
+            "Icon20x20@3x.png",
+            "Icon29x29@1x.png",
+            "Icon29x29@2x.png",
+            "Icon29x29@3x.png",
+            "Icon40x40@2x.png",
+            "Icon40x40@3x.png",
+            "Icon60x60@2x.png",
+            "Icon60x60@3x.png",
+            "Icon76x76@2x.png",
+            "Icon20x20@1x.png",
+            "Icon20x20@2x.png",
+            "Icon29x29@1x.png",
+            "Icon29x29@2x.png",
+            "Icon40x40@1x.png",
+            "Icon40x40@2x.png",
+            "Icon76x76@1x.png",
+            "Icon76x76@2x.png",
+            "Icon83.5x83.5@2x.png",
+      },
+      CFBundleURLTypes = {
+        {CFBundleURLSchemes = {"com.googleusercontent.apps.replace"}}
+      },
+      CFBundleLocalizations = {
+        "en",  --English
+        "es",  --Spanish
+        "it",  --Italian
+        "pt",  --Portuguese
+        "de",  --German
+        "fr",  --French
+        "ja",  --Japanese
+        "ko",  --Korean
+      },
+      CFBundleDisplayName   = "Tower-defense",
+      CFBundleName          = "Tower-defense",
+        plist = {
+        GADApplicationIdentifier = "capub-8138356073866245~7411159966",
+        SKAdNetworkItems = {{
+          SKAdNetworkIdentifier = "cstr6suwn9.skadnetwork",
+        }},
+      },
+    }
+  },
+  android = {
+    useGoogleServicesJson = true,
+    versionCode          = "6",
+    minSdkVersion        = "16",
+    usesPermissions = {
+        "android.permission.INTERNET",
+        "com.android.vending.BILLING",
+        "android.permission.ACCESS_NETWORK_STATE"
+    },
+    usesFeatures         = {},
+    -- googlePlayGamesAppId = "463899484568",
+    applicationChildElements =
+    {
+        [[
+            <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-1774147343127019~9449322526"/>
+        ]],
+    },
+  },
+  splashScreen = {
+		enable = true,
+    image = "splashScreen.png"
+	},
+  plugins = {
+    ["plugin.googleSignIn"]       = { publisherId = "tech.scotth", marketplaceId = "zrd7it" },
+    ["plugin.google.iap.v3"]      = { publisherId = "com.coronalabs" },
+    ["plugin.admob"]              = { publisherId = "com.coronalabs" },
+    ["plugin.google.iap.billing"] = { publisherId = "com.coronalabs" },
+    ["plugin.gpgs.v2"]                   = {
+      publisherId        = "com.coronalabs",
+      supportedPlatforms = { ["android"] = true }
+    },
+    ["plugin.openssl"] =
+    {
+        publisherId = "com.coronalabs",
+    },
+  }
+}
