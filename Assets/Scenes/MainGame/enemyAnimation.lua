@@ -1,45 +1,54 @@
 local Entity  = require("Assets.Entities.entity")
+local SpriteSheetAnimation = require("Assets.Entities.Animated.spriteSheetAnimation")
+local SpriteData = require("Assets.Scenes.MainGame.enemySprite")
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- Animation object --
+-- Animation
 -- ---------------------------------------------------------------------------------------------------------------------
-local Animation = Class("grey", Entity)
+
+local Animation = Class("animation", SpriteSheetAnimation)
+
+Animation.__imageSheet   = SpriteData.imageSheet
+Animation.__sequenceData = SpriteData.sequenceData
 Animation._inGameElement = true
 
 -- Initialization ------------------------------------------------------------------------------------------------------
 
 function Animation:create(parent, color)
-    Entity.create(self, parent)
-
     self.color = color
-    
-    self._enemyForm = display.newRect(self.group, 0, 0, 20, 40)
-    self._essence = display.newCircle(self.group, 0, 0, 10)
+
+    if self.color == "black" then
+        self.__flipX = true
+    end
+
+    Entity.create(self, parent)
+    SpriteSheetAnimation.create(self, parent)
+
+    -- self._enemyForm = display.newRect(self.group, 0, 0, 20, 40)
 
     if self.color == "white" then
-        self._enemyForm:setFillColor(1)
-        self._essence:setFillColor(1)
+        self:playNextAnimation("lightidle")
+        self._essence = display.newImageRect(self.group, "Assets/Entities/Enemy/lightessence.png", 16, 16)
     elseif self.color == "black" then
-        self._enemyForm:setFillColor(0)
-        self._essence:setFillColor(0)
+        self:playNextAnimation("darkidle")
+        self._essence = display.newImageRect(self.group, "Assets/Entities/Enemy/darkessence.png", 16, 16)
     end
 
     self._essence.isVisible = false
 end
 
-
 function Animation:turnEssence()
-    self:transitionTo{
-      table      = self._enemyForm,
-        time       = 1000,
-        alpha      = 0,
-        xScale     = 0.1,
-        yScale     = 0.1,
-        transition = easing.OutQuad,
-        onComplete = function()
-            self._enemyForm.isVisible = false
-        end
-    }
+    -- self:transitionTo{
+    --   table      = self._enemyForm,
+    --     time       = 1000,
+    --     alpha      = 0,
+    --     xScale     = 0.1,
+    --     yScale     = 0.1,
+    --     transition = easing.OutQuad,
+    --     onComplete = function()
+    --         self._enemyForm.isVisible = false
+    --     end
+    -- }
 
     self._essence.alpha = 0
     self._essence.xScale = 0.1

@@ -25,8 +25,10 @@ function scene:__addBackground()
     self.background = display.newGroup()
     self.view:insert(self.background)
     
-    self.backgroundImage = display.newRect(self.background, screen.centerX, screen.centerY, screen.width, screen.height)
-    self.backgroundImage:setFillColor(0.2, 0.1, 0.2)
+    self.backgroundImage = display.newImageRect(self.background, "Assets/Art/bg.png", screen.width, screen.height)
+    self.backgroundImage.x = screen.centerX
+    self.backgroundImage.y = screen.centerY
+    --self.backgroundImage:setFillColor(0.2, 0.1, 0.2)
 end
 
 function scene:__addGrid()

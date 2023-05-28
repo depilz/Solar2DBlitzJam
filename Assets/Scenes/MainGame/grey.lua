@@ -17,21 +17,13 @@ function Grey:create(params)
 
     self.grid = params.grid
 
-    self.col = params.col
-    self.row = params.row
-
-    local cell = self.grid:getCell(self.col, self.row)
-    self.group.x = cell.x
-    self.group.y = cell.y
-
-    self.grid:moveObject(self.col, self.row, self.col, self.row)
+    self:locateAt(params.col, params.row)
 
     Runtime:addEventListener("key", self)
 end
 
 
 function Grey:init(params)
-
 
 end
 
@@ -44,17 +36,18 @@ function Grey:locateAt(col, row)
     local cell = self.grid:getCell(col, row)
     self.group.x = cell.x
     self.group.y = cell.y
-
-    self.grid:moveObject(self.col, self.row, col, row)
-
-    return true
 end
 
 function Grey:move(dx, dy)
     local col = self.col + dx
     local row = self.row + dy
 
-    return self:locateAt(col, row)
+    if col < 1 or col > self.grid.numCols or row < 1 or row > self.grid.numRows then
+        return
+    end
+
+    self:locateAt(col, row)
+    --self._animation:dash()
 end
 
 
