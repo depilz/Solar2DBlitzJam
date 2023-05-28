@@ -19,8 +19,52 @@ function scene:create( event, params )
     self:__addPlayer()
     self:__addEnemies()
     self:__addHealth()
+    self:displayControls()
+
+    game.time.subscribe(self)
+
+    self.grey:addEventListener("onGreyDie", self)
 end
 
+
+function scene:onGreyDie()
+    display.newText(self.view, "You lose!", screen.centerX, screen.centerY, native.systemFont, 100)
+    game.time.unsubscribe(self)
+end
+
+function scene:onEnemyDied(params)
+    if params.target.color == "white" then
+        whites:remove_value(params.target)
+    else
+        blacks:remove_value(params.target)
+    end
+end
+
+function scene:enterFrame()
+    local whiteWins = true
+    local blackWins = true
+    for k, enemy in pairs(blacks) do
+        if enemy.isEnemy then
+            whiteWins = false
+            break
+        end
+    end
+    
+    for k, enemy in pairs(whites) do
+        if enemy.isEnemy then
+            blackWins = false
+            break
+        end
+    end
+
+    if whiteWins then
+        display.newText(self.view, "the good guys win!", screen.centerX, screen.centerY, native.systemFont, 100)
+        game.time.unsubscribe(self)
+    elseif blackWins then
+        display.newText(self.view, "the evil guys win!", screen.centerX, screen.centerY, native.systemFont, 100)
+        game.time.unsubscribe(self)
+    end
+end
 
 function scene:__addBackground()
     self.background = display.newGroup()
@@ -29,7 +73,6 @@ function scene:__addBackground()
     self.backgroundImage = display.newImageRect(self.background, "Assets/Art/bg.png", screen.width, screen.height)
     self.backgroundImage.x = screen.centerX
     self.backgroundImage.y = screen.centerY
-    --self.backgroundImage:setFillColor(0.2, 0.1, 0.2)
 end
 
 function scene:__addGrid()
@@ -65,7 +108,10 @@ end
 function scene:__addEnemies()
     self._whites = List()
     self._blacks = List()
-    
+
+    _G.whites = self._whites
+    _G.blacks = self._blacks
+
     local numberOfEnemies = self.grid.numRows
     for i = 1, numberOfEnemies do
         local white = Enemy:new{
@@ -75,6 +121,8 @@ function scene:__addEnemies()
             col    = 1,
             row    = i,
         }
+        white:addEventListener("onEnemyDied", self)
+
         local black = Enemy:new{
             parent = self.grid.group,
             color  = "black",
@@ -82,6 +130,7 @@ function scene:__addEnemies()
             col    = self.grid.numCols,
             row    = i,
         }
+        black:addEventListener("onEnemyDied", self)
 
         self._whites:append(white)
         self._blacks:append(black)
@@ -89,6 +138,35 @@ function scene:__addEnemies()
 end
 
 
+function scene:displayControls()
+    local text = display.newText{
+        text = [[
+↑ - move up
+→ - move right
+← - move left
+↓ - move down
+
+When you collect an essence 
+you can use it to:
+A - Attack
+H - Heal
+
+]],
+    fontSize = 50,
+    parent = self.view,
+    x = screen.centerX,
+    y = screen.centerY,
+    }
+
+    transition.to(text, {
+        delay = 6000,
+        time = 1000,
+        alpha = 0,
+        onComplete = function()
+            text:removeSelf()
+        end
+    })
+end
 
 
 

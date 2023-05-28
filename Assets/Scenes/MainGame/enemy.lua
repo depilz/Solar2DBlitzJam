@@ -9,8 +9,8 @@ local Bullet  = require("Assets.Scenes.MainGame.bullet")
 local Enemy = Class("enemy", Entity)
 Enemy._inGameElement = true
 
-local minAttackDelay = 1000
-local maxAttackDelay = 15000
+local minAttackDelay = 6000
+local maxAttackDelay = 12000
 
 -- Initialization ------------------------------------------------------------------------------------------------------
 
@@ -66,7 +66,11 @@ function Enemy:attack()
 end
 
 function Enemy:takeDamage()
-    self:die()
+    if self.isEnemy then
+        self:die()
+    else
+        self:destroy()
+    end
 end
 
 function Enemy:die()
@@ -104,6 +108,8 @@ function Enemy:destroy()
     self:interrupt()
 
     game.time.unsubscribe(self)
+
+    self:dispatchEvent({name = "onEnemyDied", target = self})
 
     self.grid:removeObject(self.col, self.row)
     self.group:removeSelf()

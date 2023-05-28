@@ -24,6 +24,8 @@ function Animation:create(parent, color)
     Entity.create(self, parent)
     SpriteSheetAnimation.create(self, parent)
 
+    self.group:scale(2, 2)
+
     if self.color == "white" then
         self:playNextAnimation("lightidle")
         self._essence = display.newImageRect(self.group, "Assets/Entities/Enemy/lightessence.png", 16, 16)

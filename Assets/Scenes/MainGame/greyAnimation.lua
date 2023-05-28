@@ -18,7 +18,9 @@ Animation.__sequenceData = SpriteData.sequenceData
 function Animation:create(parent)
   SpriteSheetAnimation.create(self, parent)
 
-  self.group.x = 18
+  self.group:scale(2, 2)
+
+  self.group.x = 36
   self.group.y = -4
 
   self:playNextAnimation("idle")
@@ -29,6 +31,32 @@ function Animation:dash()
     self:playAnimation("idle")
   end
 })
+end
+
+function Animation:die()
+  self:pause()
+
+  self:transitionTo{
+    table      = self.group,
+    time       = 1000,
+    alpha      = 0,
+    xScale     = 0.1,
+    yScale     = 0.1,
+    transition = easing.OutQuad,
+    onComplete = function()
+      self.group.isVisible = false
+    end
+  }
+end
+
+function Animation:faceLeft()
+  self.group.x = -36
+  self._spriteSheet.xScale = -1
+end
+
+function Animation:faceRight()
+  self.group.x = 36
+  self._spriteSheet.xScale = 1
 end
 
 return Animation

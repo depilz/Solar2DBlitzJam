@@ -26,6 +26,10 @@ function Health:create(params)
     self._foreground = display.newRect(self.group, 0, 0, width, height)
     self._foreground:setFillColor(.6, .9, .2)
     self._foreground.anchorX = 0
+
+    self.player = params.player
+
+    game.time.subscribe(self)
 end
 
 

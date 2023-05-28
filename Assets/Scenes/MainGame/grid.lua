@@ -27,11 +27,11 @@ function Grid:create(params)
         self._objects[r] = {}
         for c = 1, params.columns do
             self._rows[r][c] = display.newRect(self.group, 0, 0, cellWidth - 3, cellHeight- 3)
-            self._rows[r][c]:setFillColor(0.5, 0.2, 0.5)
             self._rows[r][c].x = (c-1) * cellWidth -3 + ox
             self._rows[r][c].y = (r-1) * cellHeight -3 + oy
 
             Runtime:addEventListener("enterFrame", function()
+                self._rows[r][c]:setFillColor(0.5, 0.2, 0.5)
                 if self._objects[r][c] then
                     if self._objects[r][c].isEnemy then
                         self._rows[r][c]:setFillColor(0.2, 0.5, 0.5)
@@ -64,6 +64,7 @@ function Grid:moveObject(fromCol, fromRow, toCol, toRow)
 
     self._objects[toRow][toCol] = self._objects[fromRow][fromCol]
     self._objects[fromRow][fromCol] = nil
+
 end
 
 function Grid:getCell(col, row)
