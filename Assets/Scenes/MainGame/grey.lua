@@ -52,9 +52,9 @@ function Grey:takeDamage()
 end
 
 function Grey:attack()
-    if not self.essence then return end
-
     self._animation:dash()
+
+    if not self.essence then return end
 
     Bullet:new{
         parent    = self.group.parent,

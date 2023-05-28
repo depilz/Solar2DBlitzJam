@@ -36,17 +36,17 @@ function Animation:create(parent, color)
 end
 
 function Animation:turnEssence()
-    -- self:transitionTo{
-    --   table      = self._spriteSheet,
-    --     time       = 1000,
-    --     alpha      = 0,
-    --     xScale     = 0.1,
-    --     yScale     = 0.1,
-    --     transition = easing.OutQuad,
-    --     onComplete = function()
-    --         self._spriteSheet.isVisible = false
-    --     end
-    -- }
+    self:transitionTo{
+      table      = self._spriteSheet,
+        time       = 1000,
+        alpha      = 0,
+        xScale     = 0.1,
+        yScale     = 0.1,
+        transition = easing.OutQuad,
+        onComplete = function()
+            self._spriteSheet.isVisible = false
+        end
+    }
 
     self._essence.alpha = 0
     self._essence.xScale = 0.1

@@ -64,9 +64,6 @@ function Grid:moveObject(fromCol, fromRow, toCol, toRow)
 
     self._objects[toRow][toCol] = self._objects[fromRow][fromCol]
     self._objects[fromRow][fromCol] = nil
-
-    self._rows[fromRow][fromCol]:setFillColor(0.5, 0.2, 0.5)
-    self._rows[toRow][toCol]:setFillColor(0.2, 0.5, 0.2)
 end
 
 function Grid:getCell(col, row)
