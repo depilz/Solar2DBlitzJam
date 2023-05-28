@@ -24,8 +24,6 @@ function Animation:create(parent, color)
     Entity.create(self, parent)
     SpriteSheetAnimation.create(self, parent)
 
-    -- self._enemyForm = display.newRect(self.group, 0, 0, 20, 40)
-
     if self.color == "white" then
         self:playNextAnimation("lightidle")
         self._essence = display.newImageRect(self.group, "Assets/Entities/Enemy/lightessence.png", 16, 16)
@@ -39,14 +37,14 @@ end
 
 function Animation:turnEssence()
     -- self:transitionTo{
-    --   table      = self._enemyForm,
+    --   table      = self._spriteSheet,
     --     time       = 1000,
     --     alpha      = 0,
     --     xScale     = 0.1,
     --     yScale     = 0.1,
     --     transition = easing.OutQuad,
     --     onComplete = function()
-    --         self._enemyForm.isVisible = false
+    --         self._spriteSheet.isVisible = false
     --     end
     -- }
 
@@ -68,9 +66,9 @@ function Animation:turnEssence()
 end
 
 function Animation:turnEnemy()
-    self._enemyForm.isVisible = true
+    self._spriteSheet.isVisible = true
     self:transitionTo{
-        table      = self._enemyForm,
+        table      = self._spriteSheet,
         time       = 1000,
         alpha      = 1,
         xScale     = 1,

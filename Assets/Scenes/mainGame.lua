@@ -5,6 +5,7 @@ local gameShortcuts = _G.game.shortcuts
 local Grid = require("Assets.Scenes.MainGame.grid")
 local Grey = require("Assets.Scenes.MainGame.grey")
 local Enemy = require("Assets.Scenes.MainGame.enemy")
+local Health = require("Assets.Scenes.MainGame.health")
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- ------  -----  ---- -- --                - -- --- Main Game --- -- -                   -- -- ---  ----  -------------
@@ -13,11 +14,11 @@ local Enemy = require("Assets.Scenes.MainGame.enemy")
 local scene = composer.newScene()
 
 function scene:create( event, params )
-
     self:__addBackground()
     self:__addGrid()
     self:__addPlayer()
     self:__addEnemies()
+    self:__addHealth()
 end
 
 
@@ -51,6 +52,13 @@ function scene:__addPlayer()
         grid   = self.grid,
         col    = 5,
         row    = 5,
+    }
+end
+
+function scene:__addHealth()
+    self.health = Health:new{
+        parent = self.view,
+        player = self.grey,
     }
 end
 

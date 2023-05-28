@@ -17,6 +17,10 @@ Animation.__sequenceData = SpriteData.sequenceData
 
 function Animation:create(parent)
   SpriteSheetAnimation.create(self, parent)
+
+  self.group.x = 18
+  self.group.y = -4
+
   self:playNextAnimation("idle")
 end
 
@@ -24,8 +28,7 @@ function Animation:dash()
   self:playAnimation("dash", { onComplete = function()
     self:playAnimation("idle")
   end
-}
-)
+})
 end
 
 return Animation

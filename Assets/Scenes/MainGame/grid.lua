@@ -30,6 +30,18 @@ function Grid:create(params)
             self._rows[r][c]:setFillColor(0.5, 0.2, 0.5)
             self._rows[r][c].x = (c-1) * cellWidth -3 + ox
             self._rows[r][c].y = (r-1) * cellHeight -3 + oy
+
+            Runtime:addEventListener("enterFrame", function()
+                if self._objects[r][c] then
+                    if self._objects[r][c].isEnemy then
+                        self._rows[r][c]:setFillColor(0.2, 0.5, 0.5)
+                    elseif self._objects[r][c].isPlayer then
+                        self._rows[r][c]:setFillColor(0.5, 0.2, 0.2)
+                    elseif self._objects[r][c].isEssence then
+                        self._rows[r][c]:setFillColor(0.5, 0.5, 0.2)
+                    end
+                end
+            end)
         end
     end
 end
@@ -42,10 +54,8 @@ function Grid:addObject(col, row, object)
 end
 
 
-function Grid:removeObject(col, row, object)
-    self._objects[row][col] = object
-
-    self._rows[row][col]:setFillColor(0.2, 0.5, 0.2)
+function Grid:removeObject(col, row)
+    self._objects[row][col] = nil
 end
 
 
@@ -63,9 +73,21 @@ function Grid:getCell(col, row)
     return self._rows[row][col]
 end
 
-function Grid:init(params)
-    params.parent:insert(self.group)
+function Grid:doesCellExist(col, row)
+    return self._rows[row] and self._rows[row][col]
+end
 
+function Grid:getCellByCoordinates(x, y)
+    local cellWidth = self.group.width / self.numCols
+    local cellHeight = self.group.height / self.numRows
+    local col = math.ceil((x + self.group.width / 2) / cellWidth)
+    local row = math.ceil((y + self.group.height / 2) / cellHeight)
+
+    return col, row
+end
+
+function Grid:getObject(col, row)
+    return self._objects[row] and self._objects[row][col]
 end
 
 return Grid
