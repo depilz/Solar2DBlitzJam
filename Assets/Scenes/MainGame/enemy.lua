@@ -30,7 +30,6 @@ end
 
 
 function Enemy:locateAt(col, row)
-    if not self.grid:moveObject(self.col, self.row, col, row) then return false end
     self.col = col
     self.row = row
 
