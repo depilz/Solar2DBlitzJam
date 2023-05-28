@@ -40,7 +40,7 @@ function Entity:create(parent, x, y)
   if parent then parent:insert(self.group) end
   if x then self:setPosition(x, y) end
 
-  if _G.DEBUG.ENTITY_GROUPS and self.width then
+  if _G.DEBUG_ENTITY_GROUPS and self.width then
     local body = display.newRect(self.group, 0, 0, self.width, self.height)
     body:setFillColor(.2,.9,.3,.5)
     body.anchorX, body.anchorY = self:getAnchorX(), self.anchorY and 1 - self.anchorY or self.group.anchorY
