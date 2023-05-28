@@ -15,5 +15,8 @@ require("Utils.utils") -- Load utils
 -- SYSTEM EVENTS --
 ------------------------------------------------------------------------------------------------------------------------
 
+display.setDefault('minTextureFilter', 'nearest')
+display.setDefault('magTextureFilter', 'nearest')
+
 _G.game = require("Assets.game")
 _G.game.start()

@@ -49,14 +49,20 @@ end
 
 
 function Enemy:die()
+    self.isEssence = true
     self._animation:turnEssence()
 end
 
 
 function Enemy:heal()
+    self.isEnemy = true
     self._animation:turnEnemy()
 end
 
+function Enemy:destroy()
+    self.grid:removeObject(self.col, self.row)
+    self.group:removeSelf()
+end
 
 
 return Enemy

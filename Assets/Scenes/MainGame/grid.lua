@@ -42,6 +42,13 @@ function Grid:addObject(col, row, object)
 end
 
 
+function Grid:removeObject(col, row, object)
+    self._objects[row][col] = object
+
+    self._rows[row][col]:setFillColor(0.2, 0.5, 0.2)
+end
+
+
 function Grid:moveObject(fromCol, fromRow, toCol, toRow)
     if not (self._rows[toRow] or {})[toCol] or self._objects[toRow][toCol] then return false end
 
